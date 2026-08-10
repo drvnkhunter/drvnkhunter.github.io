@@ -3,603 +3,255 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daniel Cunjamá | drvnkhunter</title>
-    <!-- Modern & Technical Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>Daniel Cunjamá - Cybersecurity Portfolio</title>
     <style>
         :root {
-            /* Non-generic Cyberpunk / High-Tech Palette */
-            --bg-void: #070709;
-            --surface: #111116;
-            --surface-hover: #1a1a24;
-            --text-primary: #e2e2e9;
-            --text-secondary: #8a8a9b;
-            --neon-cyan: #00f0ff;
-            --neon-pink: #ff0055;
-            --neon-purple: #8a2be2;
-            --border-dim: rgba(255, 255, 255, 0.05);
-            --border-glow: rgba(0, 240, 255, 0.3);
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --accent-blue: #2563eb;
+            --border-color: #e2e8f0;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
 
         body {
-            font-family: 'Space Grotesk', sans-serif;
-            background-color: var(--bg-void);
-            color: var(--text-primary);
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-            overflow-x: hidden;
-            /* Subtle scanline background */
-            background-image: linear-gradient(rgba(0, 240, 255, 0.02) 1px, transparent 1px);
-            background-size: 100% 4px;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 24px 24px;
+            color: var(--text-main);
+            line-height: 1.7;
         }
 
-        /* Dual Pane Layout */
-        .dashboard {
-            display: flex;
-            width: 100%;
-            max-width: 1400px;
-            min-height: 100vh;
-        }
+        a { text-decoration: none; transition: all 0.3s ease; }
+        .container { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
 
-        /* LEFT PANEL: Fixed Identity Interface */
-        .panel-left {
-            width: 35%;
-            padding: 50px;
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            border-right: 1px solid var(--border-dim);
-            background: linear-gradient(90deg, var(--bg-void) 0%, var(--surface) 100%);
-        }
-
-        .avatar-frame {
-            width: 160px;
-            height: 160px;
-            margin-bottom: 30px;
-            border: 2px solid var(--neon-cyan);
-            border-radius: 0; /* Brutalist square */
-            padding: 5px;
-            position: relative;
-            background: var(--bg-void);
-        }
-
-        /* Cyberpunk corner accents */
-        .avatar-frame::before, .avatar-frame::after {
-            content: '';
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            border: 2px solid var(--neon-pink);
-            transition: all 0.3s;
-        }
-        .avatar-frame::before { top: -5px; left: -5px; border-right: none; border-bottom: none; }
-        .avatar-frame::after { bottom: -5px; right: -5px; border-left: none; border-top: none; }
-
-        .avatar-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(100%) contrast(120%);
-            transition: filter 0.5s;
-        }
-
-        .avatar-frame:hover .avatar-img {
-            filter: grayscale(0%) contrast(100%);
-        }
-
-        .identity h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: -1px;
-        }
-
-        .handle {
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--neon-cyan);
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .handle::before {
-            content: '>';
-            color: var(--neon-pink);
-        }
-
-        .status-box {
-            background: var(--surface);
-            border: 1px solid var(--border-dim);
-            padding: 20px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-bottom: 40px;
-        }
-
-        .status-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            border-bottom: 1px dashed var(--border-dim);
-            padding-bottom: 4px;
-        }
-
-        .status-val { color: var(--text-primary); }
-        .status-highlight { color: var(--neon-cyan); }
-
-        .nav-links {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: auto;
-        }
-
-        .nav-links a {
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-links a::before {
-            content: '[]';
-            margin-right: 15px;
-            color: var(--border-dim);
-            transition: color 0.3s, margin-right 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--neon-cyan);
-        }
-
-        .nav-links a:hover::before {
-            content: '[x]';
-            color: var(--neon-pink);
-            margin-right: 20px;
-        }
-
-        /* RIGHT PANEL: Scrollable Content */
-        .panel-right {
-            width: 65%;
-            padding: 50px 80px;
-            overflow-y: auto;
-            scroll-behavior: smooth;
-        }
-
-        .section-title {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.5rem;
-            color: var(--neon-pink);
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .section-title::after {
-            content: '';
-            flex-grow: 1;
-            height: 1px;
-            background: linear-gradient(90deg, var(--neon-pink), transparent);
-        }
-
-        .content-block {
-            margin-bottom: 80px;
-        }
-
-        .bio-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--text-secondary);
-        }
-
-        .bio-text strong {
-            color: var(--text-primary);
-        }
-
-        /* Operational History (Experience) - Data Cards */
-        .history-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-
-        .history-card {
-            background: var(--surface);
-            border: 1px solid var(--border-dim);
-            padding: 25px;
-            position: relative;
+        .profile-header { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 3rem; }
+        .avatar {
+            width: 150px; height: 150px; border-radius: 50%;
+            background-color: var(--card-bg);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            border: 2px solid var(--accent-blue); margin-bottom: 1.5rem;
             overflow: hidden;
-            transition: all 0.3s;
-            display: grid;
-            grid-template-columns: 150px 1fr;
-            gap: 20px;
-            align-items: start;
         }
+        .avatar img { width: 100%; height: 100%; object-fit: cover; }
 
-        .history-card:hover {
-            border-color: var(--border-glow);
-            transform: translateX(10px);
-            background: var(--surface-hover);
-        }
+        .profile-header h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.3rem; letter-spacing: -0.5px; }
+        .profile-header .title-blue { font-size: 1.1rem; color: var(--accent-blue); font-weight: 600; margin-bottom: 1rem; }
+        .header-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem; margin-bottom: 1.5rem; color: var(--text-muted); font-size: 0.95rem; }
+        .dot { width: 6px; height: 6px; background-color: var(--accent-blue); border-radius: 50%; display: inline-block; margin-right: 0.4rem; }
+        .social-pills { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+        .pill { background-color: var(--card-bg); color: var(--text-main); padding: 0.5rem 1.5rem; border-radius: 30px; font-size: 0.9rem; font-weight: 500; border: 1px solid var(--border-color); box-shadow: 0 1px 2px rgba(0,0,0,0.02); }
+        .pill:hover { background-color: var(--accent-blue); color: #ffffff; border-color: var(--accent-blue); transform: translateY(-1px); }
 
-        .history-card::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 3px;
-            background: var(--neon-cyan);
-            transform: scaleY(0);
-            transition: transform 0.3s;
-            transform-origin: bottom;
-        }
+        .divider { border: 0; height: 1px; background-color: var(--border-color); margin: 0 auto 3rem auto; width: 100%; }
+        section { margin-bottom: 4rem; }
+        .section-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; position: relative; display: inline-block; }
+        .section-title::after { content: ''; position: absolute; left: 0; bottom: -8px; width: 40px; height: 3px; background-color: var(--accent-blue); border-radius: 2px; }
 
-        .history-card:hover::before {
-            transform: scaleY(1);
-        }
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem; color: var(--text-muted); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); }
+        .card p { text-align: justify; margin-bottom: 1.2rem; }
+        .card strong { color: var(--text-main); }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        
+        .tech-card, .cert-card, .collab-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: transform 0.2s ease; }
+        .tech-card:hover, .cert-card:hover, .collab-card:hover { border-color: #cbd5e1; transform: translateY(-2px); }
+        .tech-card h3, .collab-card h3 { color: var(--text-main); font-size: 1.1rem; margin-bottom: 1rem; }
+        
+        .collab-img { width: 100%; height: 150px; background-color: #f1f5f9; border: 1px dashed #cbd5e1; border-radius: 8px; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .collab-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+        
+        .experience-list { list-style: none; }
+        .experience-list li { position: relative; padding-left: 1.5rem; margin-bottom: 1rem; color: var(--text-muted); }
+        .experience-list li::before { content: "•"; color: var(--accent-blue); position: absolute; left: 0; font-size: 1.5rem; line-height: 1; }
+        .tag-container { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+        .tag { background-color: #f1f5f9; color: var(--text-muted); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 500; border: 1px solid #e2e8f0; }
 
-        .history-date {
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--neon-cyan);
-            font-size: 0.9rem;
-        }
-
-        .history-details h3 {
-            font-size: 1.3rem;
-            margin-bottom: 5px;
-        }
-
-        .history-details p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        /* Visual Telemetry (Images/Projects) - Masonry/Grid */
-        .visual-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .visual-item {
-            position: relative;
-            aspect-ratio: 16/9;
-            background: var(--surface);
-            border: 1px solid var(--border-dim);
-            overflow: hidden;
-            group: hover;
-        }
-
-        .visual-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.5;
-            transition: all 0.5s;
-            filter: grayscale(80%);
-        }
-
-        .visual-item:hover img {
-            opacity: 1;
-            filter: grayscale(0%);
-            transform: scale(1.05);
-        }
-
-        .visual-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            transform: translateY(100%);
-            transition: transform 0.3s;
-        }
-
-        .visual-item:hover .visual-overlay {
-            transform: translateY(0);
-        }
-
-        .visual-overlay h4 {
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--neon-cyan);
-            margin-bottom: 5px;
-        }
-
-        /* Security Clearances (Certifications) - Badge Grid */
-        .clearance-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .clearance-badge {
-            padding: 12px 20px;
-            background: transparent;
-            border: 1px solid var(--neon-purple);
-            color: var(--text-primary);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            position: relative;
-            overflow: hidden;
-            cursor: default;
-        }
-
-        .clearance-badge::after {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.2), transparent);
-            transition: left 0.4s;
-        }
-
-        .clearance-badge:hover::after {
-            left: 100%;
-        }
-
-        .clearance-badge:hover {
-            background: rgba(138, 43, 226, 0.1);
-            box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
-        }
-
-        /* Tactical Arsenal (Tech Stack) - Monospace dense block */
-        .arsenal-container {
-            background: var(--surface);
-            padding: 30px;
-            border: 1px solid var(--border-dim);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            line-height: 2;
-        }
-
-        .arsenal-category {
-            color: var(--neon-pink);
-            display: inline-block;
-            width: 140px;
-        }
-
-        .arsenal-items {
-            color: var(--text-secondary);
-        }
-
-        .arsenal-items span {
-            transition: color 0.2s;
-            cursor: crosshair;
-        }
-
-        .arsenal-items span:hover {
-            color: var(--neon-cyan);
-            text-decoration: underline;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .dashboard { flex-direction: column; }
-            .panel-left { width: 100%; height: auto; position: relative; padding: 40px; border-right: none; border-bottom: 1px solid var(--border-dim); }
-            .panel-right { width: 100%; padding: 40px; }
-            .history-card { grid-template-columns: 1fr; gap: 10px; }
-            .history-date { margin-bottom: 5px; }
-        }
+        .cert-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+        .cert-image { width: 45px; height: 45px; background-color: #f8fafc; border: 1px solid var(--border-color); border-radius: 6px; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
+        .cert-image img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+        
+        .link-accent { color: var(--accent-blue); font-weight: 500; }
+        .link-accent:hover { text-decoration: underline; }
+        @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
-
-    <div class="dashboard">
-        
-        <!-- LEFT PANEL: Identity -->
-        <aside class="panel-left">
-            <div class="avatar-frame">
-                <!-- Imagen de Perfil -->
-                <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=200" alt="Daniel Cunjamá" class="avatar-img">
+    <div class="container">
+        <!-- Header -->
+        <header class="profile-header">
+            <div class="avatar"><img src="img/perfil.png" alt="Daniel Cunjamá"></div>
+            <h1>Daniel Cunjamá</h1>
+            <h2 class="title-blue">Cybersecurity & Infrastructure Professional</h2>
+            <div class="header-tags">
+                <span><span class="dot"></span> drvnkhunter</span>
+                <span><span class="dot"></span> HPE NonStop Consultant</span>
+                <span><span class="dot"></span> MSc Cybersecurity</span>
+                <span><span class="dot"></span> México</span>
             </div>
-            
-            <div class="identity">
-                <h1>Daniel<br>Cunjamá</h1>
-                <div class="handle">drvnkhunter</div>
+            <div class="social-pills">
+                <a href="https://linkedin.com/in/frandanielcunjama" target="_blank" class="pill">LinkedIn</a>
+                <a href="https://tryhackme.com/p/drvnkhunter" target="_blank" class="pill">TryHackMe</a>
+                <a href="https://www.cunsecurity.com/" target="_blank" class="pill">Cunsecurity</a>
             </div>
+        </header>
 
-            <div class="status-box">
-                <div class="status-row">
-                    <span>SYS.ROLE:</span>
-                    <span class="status-highlight">HPE NonStop Consultant</span>
+        <hr class="divider">
+
+        <!-- About Me -->
+        <section>
+            <h2 class="section-title">About Me</h2>
+            <div class="card">
+                <p>I am a Cybersecurity and Infrastructure Professional with +3 years of experience spanning IT operations, DevOps, and Application Security. Currently, I serve as an <strong>HPE NonStop Tandem Consultant</strong>, ensuring that high-availability, fault-tolerant financial architectures remain highly secure, resilient, and robust. Furthermore, I have ongoing experience creating secure frameworks for mobile applications and conducting comprehensive vulnerability analyses (SAST/DAST) using tools such as Veracode, MobSF, and Snyk Code. I specialize in threat modeling for mission-critical financial systems—including credit onboarding and transaction switching processes—integrating security controls directly into the software development lifecycle (SDLC) via automated CI/CD pipelines using GitHub Actions.</p>
+                <p>Currently, I am advancing my academic specialization as an MSc Candidate in Cybersecurity at Universidad del País Innova. I hold professional industry certifications including CompTIA Security+, Cisco Junior Cybersecurity Analyst, and Google Cybersecurity, while currently gearing up for the <strong>CompTIA CySA+</strong>.</p>
+            </div>
+        </section>
+
+        <!-- Experience -->
+        <section>
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="card">
+                <ul class="experience-list">
+                    <li><strong>HPE NonStop Tandem Consultant</strong> - OmniPayments</li>
+                    <li><strong>Application Security Engineer</strong> – Financial Sector</li>
+                    <li><strong>Secure Software Engineer</strong> - IMSS Bienestar</li>
+                    <li><strong>Secure Systems Architect (Internship)</strong> - Neodata SA de CV</li>
+                    <li><strong>Web System Developer</strong> - Secretaría de Salud del Gobierno de México</li>
+                    <li><strong>Biomedical Engineer</strong> - Secretaría de Salud del Gobierno de México</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Networking -->
+        <section>
+            <h2 class="section-title">Networking</h2>
+            <div class="grid-2">
+                <div class="collab-card">
+                    <div class="collab-img"><img src="img/asici.jpg" alt="ASICI"></div>
+                    <h3>ASICI Member</h3>
+                    <p>Active member of the "Asociación Internacional de Ciberseguridad - ASICI", based in Madrid, Spain.</p>
                 </div>
-                <div class="status-row">
-                    <span>SEC.CLEARANCE:</span>
-                    <span class="status-val">Master's in progress</span>
-                </div>
-                <div class="status-row">
-                    <span>LOCATION:</span>
-                    <span class="status-val">MX</span>
-                </div>
-                <div class="status-row">
-                    <span>OPERATIVE.TYPE:</span>
-                    <span class="status-val">INTP / Solo Architect</span>
+                <div class="collab-card">
+                    <div class="collab-img"><img src="img/blacknode.jpg" alt="Blacknode"></div>
+                    <h3>Blacknode Security</h3>
+                    <p>Offensive cybersecurity initiative focused on ethical pentesting, web auditing, research, labs, CTFs, and technical training under an ethical and collaborative framework.</p>
                 </div>
             </div>
+        </section>
 
-            <nav class="nav-links">
-                <a href="https://linkedin.com/in/frandanielcunjama" target="_blank">Access: LinkedIn</a>
-                <a href="https://tryhackme.com/p/drvnkhunter" target="_blank">Access: TryHackMe</a>
-                <a href="https://youtube.com/@dr.hunter" target="_blank">Access: YouTube</a>
-                <a href="mailto:contact@example.com">Execute: Contact</a>
-            </nav>
-        </aside>
-
-        <!-- RIGHT PANEL: Data Content -->
-        <main class="panel-right">
-            
-            <!-- EXECUTIVE SUMMARY -->
-            <section class="content-block">
-                <h2 class="section-title">01. Executive Summary</h2>
-                <p class="bio-text">
-                    Cybersecurity and Infrastructure Professional bridging <strong>DevOps, Application Security, and IT operations</strong>. Proven track record in securing mission-critical financial and healthcare systems through threat modeling, SAST/DAST, and strict infrastructure hardening. Active ASICI Member building secure architectures and preparing to launch <strong>CunSecurity Academy</strong>.
-                </p>
-            </section>
-
-            <!-- OPERATIONAL HISTORY -->
-            <section class="content-block">
-                <h2 class="section-title">02. Operational History</h2>
-                <div class="history-grid">
-                    
-                    <div class="history-card">
-                        <div class="history-date">PRESENT</div>
-                        <div class="history-details">
-                            <h3>HPE NonStop Tandem Consultant</h3>
-                            <p>OmniPayments</p>
-                        </div>
-                    </div>
-
-                    <div class="history-card">
-                        <div class="history-date">PREVIOUS</div>
-                        <div class="history-details">
-                            <h3>Application Security Engineer (External)</h3>
-                            <p>Financial Sector - Credit Onboarding Platform</p>
-                        </div>
-                    </div>
-
-                    <div class="history-card">
-                        <div class="history-date">PREVIOUS</div>
-                        <div class="history-details">
-                            <h3>Secure Software Engineer</h3>
-                            <p>IMSS Bienestar</p>
-                        </div>
-                    </div>
-
-                    <div class="history-card">
-                        <div class="history-date">PREVIOUS</div>
-                        <div class="history-details">
-                            <h3>Secure Systems Architect</h3>
-                            <p>Neodata SA de CV</p>
-                        </div>
-                    </div>
-
+        <!-- Personal Project -->
+        <section>
+            <h2 class="section-title">Personal Project: Cunsecurity Academy</h2>
+            <div class="card">
+                <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
+                    <div class="collab-img" style="width:80px; height:80px; margin:0;"><img src="img/academy.jpg" alt="Logo"></div>
+                    <a href="https://www.cunsecurity.com/" target="_blank" style="font-size:1.5rem; font-weight:bold; color:var(--accent-blue);">cunsecurity.com</a>
                 </div>
-            </section>
+                <p>In Cunsecurity Academy, we transform technical complexity into professional skills. Real-time threat simulations and learning paths that align with international certifications are provided through our web platform. We train in phishing detection, social engineering, and active defense with a focus on Core Blue Team through controlled environments. In a high-quality, accessible, and dynamic web experience, we boost digital hygiene and advanced tactical mindset.</p>
+            </div>
+        </section>
 
-            <!-- VISUAL TELEMETRY (IMÁGENES Y PROYECTOS) -->
-            <section class="content-block">
-                <h2 class="section-title">03. Visual Telemetry</h2>
-                <div class="visual-grid">
-                    
-                    <div class="visual-item">
-                        <!-- Imagen Proyecto 1 -->
-                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=600" alt="Cybersecurity Architecture">
-                        <div class="visual-overlay">
-                            <h4>Zero Trust Architecture</h4>
-                            <p style="font-size: 0.85rem; color: #fff;">Financial sector deployment.</p>
-                        </div>
-                    </div>
+        <!-- Research -->
+        <section>
+            <h2 class="section-title">Research & Publications</h2>
+            <div class="card">
+                <div class="collab-img" style="height: 120px;"><img src="img/articulo.png" alt="Research"></div>
+                <h3>Scientific Article</h3>
+                <p><strong>Sensor de Deshidratación por Medio de la Conductancia de la Piel</strong></p>
+                <p>Published in Ciencia Latina Revista Científica Multidisciplinar.</p>
+                <a href="https://ciencialatina.org/index.php/cienciala/article/view/10920" target="_blank" class="link-accent">Read Publication &rarr;</a>
+            </div>
+        </section>
 
-                    <div class="visual-item">
-                        <!-- Imagen Proyecto 2 -->
-                        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=600" alt="Code Matrix">
-                        <div class="visual-overlay">
-                            <h4>Otti Virtual Assistant</h4>
-                            <p style="font-size: 0.85rem; color: #fff;">Standalone AI chatbot.</p>
-                        </div>
-                    </div>
-
-                    <div class="visual-item">
-                        <!-- Imagen Proyecto 3 -->
-                        <img src="https://images.unsplash.com/photo-1614064641913-6b71a30a1334?auto=format&fit=crop&q=80&w=600" alt="Server Rack">
-                        <div class="visual-overlay">
-                            <h4>Infrastructure Hardening</h4>
-                            <p style="font-size: 0.85rem; color: #fff;">HPE NonStop Environment.</p>
-                        </div>
-                    </div>
-
-                    <div class="visual-item">
-                        <!-- Imagen Proyecto 4 -->
-                        <img src="https://images.unsplash.com/photo-1563206767-5b18f218e8de?auto=format&fit=crop&q=80&w=600" alt="Terminal">
-                        <div class="visual-overlay">
-                            <h4>AppSec / SAST</h4>
-                            <p style="font-size: 0.85rem; color: #fff;">Automated pipelines.</p>
-                        </div>
-                    </div>
-
-                </div>
-            </section>
-
-            <!-- SECURITY CLEARANCES -->
-            <section class="content-block">
-                <h2 class="section-title">04. Security Clearances</h2>
-                <div class="clearance-grid">
-                    <div class="clearance-badge">CompTIA Security+</div>
-                    <div class="clearance-badge">eJPT Candidate</div>
-                    <div class="clearance-badge">Cisco Jr. Cyber Analyst</div>
-                    <div class="clearance-badge">Cisco Ethical Hacker</div>
-                    <div class="clearance-badge">TryHackMe Security Eng.</div>
-                    <div class="clearance-badge">Google Cybersecurity</div>
-                </div>
-            </section>
-
-            <!-- TACTICAL ARSENAL -->
-            <section class="content-block">
-                <h2 class="section-title">05. Tactical Arsenal</h2>
-                <div class="arsenal-container">
-                    <div>
-                        <span class="arsenal-category">DEV_LANGUAGES</span>
-                        <span class="arsenal-items">
-                            <span>Python</span> // <span>JavaScript</span> // <span>Java</span> // <span>Kotlin</span> // <span>Dart</span> // <span>Bash</span>
-                        </span>
-                    </div>
-                    <div>
-                        <span class="arsenal-category">DEV_SEC_OPS</span>
-                        <span class="arsenal-items">
-                            <span>Veracode</span> // <span>Snyk Code</span> // <span>GitHub Actions</span> // <span>OWASP</span>
-                        </span>
-                    </div>
-                    <div>
-                        <span class="arsenal-category">SIEM_NET</span>
-                        <span class="arsenal-items">
-                            <span>Splunk</span> // <span>Elastic</span> // <span>Wireshark</span> // <span>Nmap</span> // <span>Snort</span>
-                        </span>
-                    </div>
-                    <div>
-                        <span class="arsenal-category">OFFENSIVE</span>
-                        <span class="arsenal-items">
-                            <span>Kali Linux</span> // <span>Burp Suite</span> // <span>Metasploit</span> // <span>Nessus</span> // <span>SQLMap</span>
-                        </span>
-                    </div>
-                    <div>
-                        <span class="arsenal-category">FORENSICS</span>
-                        <span class="arsenal-items">
-                            <span>CyberChef</span> // <span>FTK Imager</span> // <span>Autopsy</span> // <span>EnCase</span>
-                        </span>
+        <!-- Core Technical Stack -->
+        <section>
+            <h2 class="section-title">Core Technical Stack</h2>
+            <div class="grid-2">
+                <div class="tech-card">
+                    <h3>Languages & Tools</h3>
+                    <div class="tag-container">
+                        <span class="tag">Python</span><span class="tag">Javascript</span><span class="tag">SQL, MySQL</span><span class="tag">HTML, CSS</span>
+                        <span class="tag">PHP, phpMyAdmin</span><span class="tag">Bash, Shell Scripting</span><span class="tag">Java, Kotlin, Spring Boot</span>
+                        <span class="tag">Dart, Flutter</span><span class="tag">YAML, JSON</span>
                     </div>
                 </div>
-            </section>
+                <div class="tech-card">
+                    <h3>DevSecOps & AppSec</h3>
+                    <div class="tag-container">
+                        <span class="tag">Veracode</span><span class="tag">Snyk Code</span><span class="tag">GitHub Actions - CI/CD</span><span class="tag">OWASP Top 10 Mobile</span>
+                    </div>
+                </div>
+                <div class="tech-card">
+                    <h3>SIEM & Network Analysis</h3>
+                    <div class="tag-container">
+                        <span class="tag">Splunk</span><span class="tag">Elastic SIEM</span><span class="tag">Wireshark</span><span class="tag">Tcpdump</span><span class="tag">Nmap</span><span class="tag">Snort</span>
+                    </div>
+                </div>
+                <div class="tech-card">
+                    <h3>Pentesting & Threat Intel</h3>
+                    <div class="tag-container">
+                        <span class="tag">Kali Linux</span><span class="tag">Burp Suite</span><span class="tag">Metasploit</span><span class="tag">Nessus</span><span class="tag">SQLMap</span>
+                        <span class="tag">Nikto</span><span class="tag">VirusTotal</span><span class="tag">AnyRun</span><span class="tag">MITRE ATT&CK</span>
+                    </div>
+                </div>
+                <div class="tech-card">
+                    <h3>OSINT & Recon</h3>
+                    <div class="tag-container">
+                        <span class="tag">Shodan</span><span class="tag">Whois</span><span class="tag">Epieos</span>
+                    </div>
+                </div>
+                <div class="tech-card">
+                    <h3>Crypto & Forensics</h3>
+                    <div class="tag-container">
+                        <span class="tag">CyberChef</span><span class="tag">FTK Imager</span><span class="tag">Autopsy</span><span class="tag">EnCase Imager</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-            <footer style="margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--border-dim); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text-secondary); text-align: right;">
-                SYSTEM HALTED. // drvnkhunter (c) 2026.
-            </footer>
+        <!-- Certifications -->
+        <section>
+            <h2 class="section-title">Certifications & Training</h2>
+            <div class="grid-2">
+                <div class="cert-card">
+                    <div class="cert-header"><div class="cert-image"><img src="img/comptia.png" alt="Cert"></div><h3>CompTIA Security+</h3></div>
+                    <p style="font-size: 0.85rem;">Currently gearing up for CompTIA CySA+</p>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-header"><div class="cert-image"><img src="img/ejpt.jpg" alt="Cert"></div><h3>eJPT Certification Candidate</h3></div>
+                    <p style="font-size: 0.85rem;">eLearnSecurity Junior Penetration Tester</p>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-header"><div class="cert-image"><img src="img/cisco.png" alt="Cert"></div><h3>Cisco Networking Academy</h3></div>
+                    <p style="font-size: 0.85rem;">Junior Cybersecurity Analyst & Ethical Hacker</p>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-header"><div class="cert-image"><img src="img/thm.png" alt="Cert"></div><h3>TryHackMe Certificates</h3></div>
+                    <p style="font-size: 0.85rem;">Security Engineer & SOC Level 1 Certificates</p>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-header"><div class="cert-image"><img src="img/google.jpg" alt="Cert"></div><h3>Google Professional Certs</h3></div>
+                    <p style="font-size: 0.85rem;">Cybersecurity, Python, Network Security</p>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-header"><div class="cert-image"><img src="img/santander.jpg" alt="Cert"></div><h3>Additional Training</h3></div>
+                    <p style="font-size: 0.85rem;">Edutin Academy, Santander (Agile, PM, Data Science)</p>
+                </div>
+            </div>
+        </section>
 
-        </main>
+        <!-- Languages -->
+        <section>
+            <h2 class="section-title">Languages</h2>
+            <div class="card">
+                <ul class="experience-list" style="margin-bottom:0;">
+                    <li><strong>Spanish:</strong> Native</li>
+                    <li><strong>English:</strong> B2 (Technical & Cybersecurity Focus)</li>
+                    <li><strong>Portuguese:</strong> Basic (Just for fun)</li>
+                </ul>
+            </div>
+        </section>
     </div>
-
 </body>
 </html>
