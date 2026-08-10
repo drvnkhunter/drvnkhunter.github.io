@@ -1,77 +1,130 @@
-<!DOCTYPE html>
+html_content = """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daniel Cunjamá | Cybersecurity Professional</title>
-    <!-- Google Fonts para un diseño moderno y tipo terminal -->
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* Variables de colores (Estilo Dark / Cyber) */
         :root {
-            --bg-color: #0d1117;
-            --card-bg: #161b22;
+            --bg-base: #050b14;
+            --card-bg: rgba(22, 27, 34, 0.6);
             --text-main: #c9d1d9;
             --text-muted: #8b949e;
             --accent: #58a6ff;
+            --accent-glow: rgba(88, 166, 255, 0.4);
             --accent-green: #238636;
-            --border-color: #30363d;
+            --border-color: rgba(88, 166, 255, 0.15);
+            --border-hover: rgba(88, 166, 255, 0.5);
         }
 
-        /* Estilos Globales */
+        /* Estilos Globales y Fondo Moderno */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
+            background-color: var(--bg-base);
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(88, 166, 255, 0.08), transparent 25%),
+                radial-gradient(circle at 85% 10%, rgba(35, 134, 54, 0.05), transparent 25%),
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 30px 30px, 30px 30px;
             color: var(--text-main);
             margin: 0;
             padding: 0;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         h1, h2, h3 {
             font-family: 'Fira Code', monospace;
             color: var(--accent);
+            letter-spacing: -0.5px;
         }
 
         a {
             color: var(--accent);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: all 0.3s ease;
         }
 
         a:hover {
             color: var(--accent-green);
+            text-shadow: 0 0 8px var(--accent-green);
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 60px 20px;
         }
 
         /* Cabecera (Header) */
         header {
             text-align: center;
-            margin-bottom: 50px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 40px;
+            margin-bottom: 60px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        /* Contenedor de Imagen de Perfil */
+        .profile-pic-container {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px auto;
+            border-radius: 50%;
+            padding: 5px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-green));
+            box-shadow: 0 0 20px var(--accent-glow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .profile-pic-container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px var(--accent);
+        }
+
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: var(--bg-base);
+            object-fit: cover;
+            border: 4px solid var(--bg-base);
         }
 
         header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-size: 2.8em;
+            margin-bottom: 5px;
             color: #ffffff;
         }
 
-        header span {
-            color: var(--accent);
+        header span.cursor {
+            display: inline-block;
+            width: 12px;
+            height: 1.2em;
+            background-color: var(--accent);
+            vertical-align: middle;
+            animation: blink 1s step-end infinite;
+        }
+
+        .handle {
+            font-family: 'Fira Code', monospace;
+            color: var(--accent-green);
+            font-size: 1.2em;
+            margin-bottom: 20px;
         }
 
         .bio {
             font-size: 1.1em;
             color: var(--text-muted);
-            max-width: 750px;
+            max-width: 800px;
             margin: 20px auto;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
+            backdrop-filter: blur(10px);
+            text-align: left;
         }
 
         /* Botones de Contacto */
@@ -79,44 +132,131 @@
             margin-top: 30px;
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 20px;
             flex-wrap: wrap;
         }
 
         .social-btn {
             border: 1px solid var(--border-color);
-            padding: 10px 20px;
-            border-radius: 5px;
-            background: var(--card-bg);
+            padding: 12px 25px;
+            border-radius: 8px;
+            background: rgba(13, 17, 23, 0.8);
             font-family: 'Fira Code', monospace;
-            font-size: 0.9em;
+            font-size: 0.95em;
+            color: var(--text-main);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .social-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(88, 166, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .social-btn:hover::before {
+            left: 100%;
         }
 
         .social-btn:hover {
             border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+            transform: translateY(-2px);
         }
 
-        /* Secciones (Tarjetas) */
+        /* Secciones (Tarjetas Glassmorphism) */
         .section {
             background: var(--card-bg);
-            padding: 30px;
-            border-radius: 8px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 40px;
+            border-radius: 12px;
             border: 1px solid var(--border-color);
-            margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            animation: fadeInUp 1s ease-out backwards;
+        }
+
+        .section:nth-child(2) { animation-delay: 0.1s; }
+        .section:nth-child(3) { animation-delay: 0.2s; }
+        .section:nth-child(4) { animation-delay: 0.3s; }
+        .section:nth-child(5) { animation-delay: 0.4s; }
+        .section:nth-child(6) { animation-delay: 0.5s; }
+
+        .section:hover {
+            border-color: var(--border-hover);
         }
 
         .section h2 {
-            border-bottom: 1px dashed var(--border-color);
-            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
             margin-top: 0;
+            font-size: 1.8em;
         }
 
-        /* Cuadrículas para listas (Grid) */
+        .section h2::before {
+            content: '>';
+            color: var(--accent-green);
+            margin-right: 10px;
+        }
+
+        /* Cuadrículas */
         .grid-2 {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
+        }
+
+        /* Proyectos (Con imágenes) */
+        .project-card {
+            background: rgba(13, 17, 23, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 5px 20px var(--accent-glow);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-color);
+            background-color: #1c2128; /* Placeholder color */
+        }
+
+        .project-content {
+            padding: 20px;
+        }
+
+        .project-content h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.2em;
+        }
+
+        .project-content p {
+            font-size: 0.9em;
+            color: var(--text-muted);
+            margin-bottom: 15px;
         }
 
         /* Listas y Etiquetas */
@@ -126,44 +266,84 @@
             margin: 0;
         }
 
-        ul.timeline li {
-            border-left: 2px solid var(--accent);
-            padding-left: 15px;
-            margin-bottom: 15px;
+        ul.timeline {
             position: relative;
+        }
+
+        ul.timeline::before {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border-color);
+        }
+
+        ul.timeline li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 25px;
         }
 
         ul.timeline li::before {
             content: '';
             position: absolute;
-            width: 10px;
-            height: 10px;
-            background: var(--bg-color);
+            width: 12px;
+            height: 12px;
+            background: var(--bg-base);
             border: 2px solid var(--accent);
             border-radius: 50%;
-            left: -7px;
+            left: -1px;
             top: 5px;
+            transition: all 0.3s ease;
+        }
+
+        ul.timeline li:hover::before {
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        ul.timeline li span.date {
+            display: block;
+            font-size: 0.85em;
+            color: var(--accent-green);
+            font-family: 'Fira Code', monospace;
+            margin-bottom: 5px;
         }
 
         ul.tech-list li, ul.cert-list li {
-            background: var(--bg-color);
-            margin: 8px 0;
-            padding: 12px;
-            border-radius: 5px;
-            font-size: 0.9em;
+            background: rgba(13, 17, 23, 0.6);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 0.95em;
             border: 1px solid var(--border-color);
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        ul.tech-list li:hover, ul.cert-list li:hover {
+            transform: translateX(5px);
+            background: rgba(88, 166, 255, 0.05);
+            border-color: var(--accent);
         }
 
         .tag {
             display: inline-block;
             background: rgba(88, 166, 255, 0.1);
             color: var(--accent);
-            padding: 2px 8px;
+            padding: 4px 10px;
             border-radius: 12px;
-            font-size: 0.8em;
-            margin: 3px;
+            font-size: 0.75em;
+            margin: 4px 4px 0 0;
             font-family: 'Fira Code', monospace;
             border: 1px solid rgba(88, 166, 255, 0.2);
+            transition: all 0.2s;
+        }
+
+        .tag:hover {
+            background: rgba(88, 166, 255, 0.2);
+            border-color: var(--accent);
         }
 
         .lang-table {
@@ -173,10 +353,29 @@
         }
 
         .lang-table th, .lang-table td {
-            padding: 10px;
+            padding: 15px 10px;
             border-bottom: 1px solid var(--border-color);
         }
 
+        .lang-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Animaciones Clave */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
     </style>
 </head>
 <body>
@@ -185,13 +384,17 @@
         
         <!-- HEADER / PRESENTACIÓN -->
         <header>
-            <h1>Daniel Cunjamá <span>_</span></h1>
-            <div style="font-family: 'Fira Code', monospace; color: var(--accent-green);">drvnkhunter</div>
+            <div class="profile-pic-container">
+                <!-- Reemplaza el src con la URL de tu imagen real -->
+                <img src="https://via.placeholder.com/150/1c2128/c9d1d9?text=DC" alt="Daniel Cunjamá" class="profile-pic">
+            </div>
+            <h1>Daniel Cunjamá<span class="cursor"></span></h1>
+            <div class="handle">drvnkhunter</div>
             
-            <p class="bio">
-                Hello, everyone. 👽🖖<br><br>
+            <div class="bio">
+                <span style="color: var(--accent-green); font-family: 'Fira Code', monospace; font-size: 0.9em;">> System initialized. Welcome.</span><br><br>
                 Cybersecurity and Infrastructure Professional with 3+ years of experience bridging DevOps, Application Security, and IT operations. Proven track record securing mission-critical financial and healthcare systems through threat modeling, SAST/DAST, and infrastructure hardening. Master's student in Cybersecurity and Active ASICI Member - Asociación Internacional de Ciberseguridad (Spain).
-            </p>
+            </div>
 
             <div class="socials">
                 <a href="https://linkedin.com/in/frandanielcunjama" target="_blank" class="social-btn">LinkedIn</a>
@@ -204,19 +407,76 @@
         <section class="section">
             <h2>Experience</h2>
             <ul class="timeline">
-                <li><strong>HPE NonStop Tandem Consultant</strong> - OmniPayments</li>
-                <li><strong>Application Security Engineer</strong> - Financial Sector</li>
-                <li><strong>Secure Software Engineer</strong> - IMSS Bienestar</li>
-                <li><strong>Secure Systems Architect (Internship)</strong> - Neodata SA de CV</li>
-                <li><strong>Web System Developer</strong> - Secretaría de Salud del Gobierno de México</li>
-                <li><strong>Biomedical Engineer</strong> - Secretaría de Salud del Gobierno de México</li>
+                <li>
+                    <span class="date">Present</span>
+                    <strong>HPE NonStop Tandem Consultant</strong> - OmniPayments
+                </li>
+                <li>
+                    <span class="date">Previous</span>
+                    <strong>Application Security Engineer</strong> - Financial Sector
+                </li>
+                <li>
+                    <span class="date">Previous</span>
+                    <strong>Secure Software Engineer</strong> - IMSS Bienestar
+                </li>
+                <li>
+                    <span class="date">Internship</span>
+                    <strong>Secure Systems Architect</strong> - Neodata SA de CV
+                </li>
+                <li>
+                    <span class="date">Previous</span>
+                    <strong>Web System Developer</strong> - Secretaría de Salud del Gobierno de México
+                </li>
+                <li>
+                    <span class="date">Previous</span>
+                    <strong>Biomedical Engineer</strong> - Secretaría de Salud del Gobierno de México
+                </li>
             </ul>
+        </section>
+
+        <!-- PROYECTOS DESTACADOS (NUEVA SECCIÓN PARA IMÁGENES) -->
+        <section class="section">
+            <h2>Featured Projects</h2>
+            <p style="font-size: 0.9em; color: var(--text-muted); font-family: 'Fira Code'; margin-bottom: 20px;">/* Operations and infrastructure deployments. */</p>
+            <div class="grid-3">
+                <!-- Proyecto 1 -->
+                <div class="project-card">
+                    <!-- Placeholder de imagen -->
+                    <img src="https://via.placeholder.com/400x200/161b22/58a6ff?text=Project+Alpha" alt="Project 1" class="project-img">
+                    <div class="project-content">
+                        <h3>Secure Infrastructure</h3>
+                        <p>Hardening of internal servers and implementation of Zero Trust architecture.</p>
+                        <span class="tag">DevSecOps</span>
+                        <span class="tag">SIEM</span>
+                    </div>
+                </div>
+                <!-- Proyecto 2 -->
+                <div class="project-card">
+                    <img src="https://via.placeholder.com/400x200/161b22/238636?text=Threat+Model" alt="Project 2" class="project-img">
+                    <div class="project-content">
+                        <h3>AppSec Analysis</h3>
+                        <p>Threat modeling and automated SAST/DAST pipelines for financial apps.</p>
+                        <span class="tag">SAST/DAST</span>
+                        <span class="tag">OWASP</span>
+                    </div>
+                </div>
+                <!-- Proyecto 3 -->
+                <div class="project-card">
+                    <img src="https://via.placeholder.com/400x200/161b22/8b949e?text=Custom+Tool" alt="Project 3" class="project-img">
+                    <div class="project-content">
+                        <h3>Otti Virtual Assistant</h3>
+                        <p>Standalone conversational chatbot assistant focused on cybersecurity queries.</p>
+                        <span class="tag">Python</span>
+                        <span class="tag">AI/ML</span>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- TECH STACK -->
         <section class="section">
             <h2>Tech Stack</h2>
-            <p style="font-size: 0.9em; color: var(--text-muted); font-family: 'Fira Code';">/* This section is constantly updated.*/</p>
+            <p style="font-size: 0.9em; color: var(--text-muted); font-family: 'Fira Code'; margin-bottom: 20px;">/* Stack automatically mapped from daily operations. */</p>
             
             <div class="grid-2">
                 <div>
@@ -232,11 +492,11 @@
                 <div>
                     <h3>Cybersecurity Tools</h3>
                     <ul class="tech-list">
-                        <li><strong>DevSecOps:</strong> Veracode, Snyk Code, GitHub Actions, OWASP Top 10 Mobile</li>
-                        <li><strong>SIEM & Network:</strong> Splunk, Elastic SIEM, Wireshark, Tcpdump, Nmap, Snort</li>
-                        <li><strong>Pentesting:</strong> Kali Linux, Burp Suite, Metasploit, Nessus, SQLMap, Nikto</li>
-                        <li><strong>Threat Intel & OSINT:</strong> VirusTotal, AnyRun, MITRE ATT&CK, Shodan, Whois, Epieos</li>
-                        <li><strong>Crypto / Forense:</strong> CyberChef, FTK Imager, Autopsy, EnCase Imager</li>
+                        <li><strong>DevSecOps:</strong> Veracode, Snyk Code, GitHub Actions, OWASP Mobile</li>
+                        <li><strong>SIEM & Network:</strong> Splunk, Elastic, Wireshark, Tcpdump, Nmap</li>
+                        <li><strong>Pentesting:</strong> Kali Linux, Burp Suite, Metasploit, Nessus, SQLMap</li>
+                        <li><strong>Threat Intel & OSINT:</strong> VirusTotal, MITRE ATT&CK, Shodan, Epieos</li>
+                        <li><strong>Crypto / Forense:</strong> CyberChef, FTK Imager, Autopsy, EnCase</li>
                     </ul>
                 </div>
             </div>
@@ -258,7 +518,7 @@
                     <li>Google Cybersecurity</li>
                     <li>Google Python & Network Security</li>
                     <li>Edutin Academy Cybersecurity and Information Security</li>
-                    <li>Santander Project Management and Agile Methodology Fundamentals</li>
+                    <li>Santander Project Management and Agile Methodology</li>
                     <li>Santander Introduction to Data Science</li>
                 </ul>
             </div>
@@ -283,11 +543,37 @@
             </table>
         </section>
 
-        <footer style="text-align: center; margin-top: 50px; font-size: 0.9em; color: var(--text-muted);">
+        <footer style="text-align: center; margin-top: 50px; font-family: 'Fira Code', monospace; font-size: 0.9em; color: var(--border-hover);">
             <p>echo "Designed for drvnkhunter. $(date +%Y)"</p>
+            <p style="font-size: 0.8em; color: var(--border-color);">Connection terminated.</p>
         </footer>
 
     </div>
 
+    <script>
+        // Efecto de tipeo en el título principal
+        const title = document.querySelector('header h1');
+        const text = "Daniel Cunjamá";
+        const cursor = document.querySelector('.cursor');
+        title.innerHTML = '';
+        
+        let i = 0;
+        function typeWriter() {
+            if (i < text.length) {
+                title.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            } else {
+                title.appendChild(cursor);
+            }
+        }
+        
+        setTimeout(typeWriter, 500);
+    </script>
 </body>
-</html>
+</html>"""
+
+with open('/mnt/data/portfolio.html', 'w') as f:
+    f.write(html_content)
+
+print("HTML file generated successfully.")
