@@ -3,577 +3,603 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daniel Cunjamá | Cybersecurity Professional</title>
-    <!-- Fuentes -->
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Daniel Cunjamá | drvnkhunter</title>
+    <!-- Modern & Technical Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-base: #050b14;
-            --card-bg: rgba(22, 27, 34, 0.6);
-            --text-main: #c9d1d9;
-            --text-muted: #8b949e;
-            --accent: #58a6ff;
-            --accent-glow: rgba(88, 166, 255, 0.4);
-            --accent-green: #238636;
-            --border-color: rgba(88, 166, 255, 0.15);
-            --border-hover: rgba(88, 166, 255, 0.5);
+            /* Non-generic Cyberpunk / High-Tech Palette */
+            --bg-void: #070709;
+            --surface: #111116;
+            --surface-hover: #1a1a24;
+            --text-primary: #e2e2e9;
+            --text-secondary: #8a8a9b;
+            --neon-cyan: #00f0ff;
+            --neon-pink: #ff0055;
+            --neon-purple: #8a2be2;
+            --border-dim: rgba(255, 255, 255, 0.05);
+            --border-glow: rgba(0, 240, 255, 0.3);
         }
 
-        /* Estilos Globales y Fondo Moderno */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-base);
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(88, 166, 255, 0.08), transparent 25%),
-                radial-gradient(circle at 85% 10%, rgba(35, 134, 54, 0.05), transparent 25%),
-                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 30px 30px, 30px 30px;
-            color: var(--text-main);
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            line-height: 1.6;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg-void);
+            color: var(--text-primary);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
             overflow-x: hidden;
+            /* Subtle scanline background */
+            background-image: linear-gradient(rgba(0, 240, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 4px;
         }
 
-        h1, h2, h3 {
-            font-family: 'Fira Code', monospace;
-            color: var(--accent);
-            letter-spacing: -0.5px;
+        /* Dual Pane Layout */
+        .dashboard {
+            display: flex;
+            width: 100%;
+            max-width: 1400px;
+            min-height: 100vh;
         }
 
-        a {
-            color: var(--accent);
-            text-decoration: none;
-            transition: all 0.3s ease;
+        /* LEFT PANEL: Fixed Identity Interface */
+        .panel-left {
+            width: 35%;
+            padding: 50px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--border-dim);
+            background: linear-gradient(90deg, var(--bg-void) 0%, var(--surface) 100%);
         }
 
-        a:hover {
-            color: var(--accent-green);
-            text-shadow: 0 0 8px var(--accent-green);
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 60px 20px;
-        }
-
-        /* Cabecera (Header) */
-        header {
-            text-align: center;
-            margin-bottom: 60px;
-            animation: fadeInDown 1s ease-out;
-        }
-
-        /* Contenedor de Imagen de Perfil */
-        .profile-pic-container {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 20px auto;
-            border-radius: 50%;
+        .avatar-frame {
+            width: 160px;
+            height: 160px;
+            margin-bottom: 30px;
+            border: 2px solid var(--neon-cyan);
+            border-radius: 0; /* Brutalist square */
             padding: 5px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-green));
-            box-shadow: 0 0 20px var(--accent-glow);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            background: var(--bg-void);
         }
 
-        .profile-pic-container:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px var(--accent);
+        /* Cyberpunk corner accents */
+        .avatar-frame::before, .avatar-frame::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border: 2px solid var(--neon-pink);
+            transition: all 0.3s;
         }
+        .avatar-frame::before { top: -5px; left: -5px; border-right: none; border-bottom: none; }
+        .avatar-frame::after { bottom: -5px; right: -5px; border-left: none; border-top: none; }
 
-        .profile-pic {
+        .avatar-img {
             width: 100%;
             height: 100%;
-            border-radius: 50%;
-            background-color: var(--bg-base);
             object-fit: cover;
-            border: 4px solid var(--bg-base);
+            filter: grayscale(100%) contrast(120%);
+            transition: filter 0.5s;
         }
 
-        header h1 {
-            font-size: 2.8em;
-            margin-bottom: 5px;
-            color: #ffffff;
+        .avatar-frame:hover .avatar-img {
+            filter: grayscale(0%) contrast(100%);
         }
 
-        header span.cursor {
-            display: inline-block;
-            width: 12px;
-            height: 1.2em;
-            background-color: var(--accent);
-            vertical-align: middle;
-            animation: blink 1s step-end infinite;
+        .identity h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: -1px;
         }
 
         .handle {
-            font-family: 'Fira Code', monospace;
-            color: var(--accent-green);
-            font-size: 1.2em;
-            margin-bottom: 20px;
-        }
-
-        .bio {
-            font-size: 1.1em;
-            color: var(--text-muted);
-            max-width: 800px;
-            margin: 20px auto;
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 3px solid var(--accent);
-            backdrop-filter: blur(10px);
-            text-align: left;
-        }
-
-        /* Botones de Contacto */
-        .socials {
-            margin-top: 30px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--neon-cyan);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
         }
 
-        .social-btn {
-            border: 1px solid var(--border-color);
-            padding: 12px 25px;
-            border-radius: 8px;
-            background: rgba(13, 17, 23, 0.8);
-            font-family: 'Fira Code', monospace;
-            font-size: 0.95em;
-            color: var(--text-main);
+        .handle::before {
+            content: '>';
+            color: var(--neon-pink);
+        }
+
+        .status-box {
+            background: var(--surface);
+            border: 1px solid var(--border-dim);
+            padding: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        .status-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            border-bottom: 1px dashed var(--border-dim);
+            padding-bottom: 4px;
+        }
+
+        .status-val { color: var(--text-primary); }
+        .status-highlight { color: var(--neon-cyan); }
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: auto;
+        }
+
+        .nav-links a {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a::before {
+            content: '[]';
+            margin-right: 15px;
+            color: var(--border-dim);
+            transition: color 0.3s, margin-right 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-cyan);
+        }
+
+        .nav-links a:hover::before {
+            content: '[x]';
+            color: var(--neon-pink);
+            margin-right: 20px;
+        }
+
+        /* RIGHT PANEL: Scrollable Content */
+        .panel-right {
+            width: 65%;
+            padding: 50px 80px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        .section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            color: var(--neon-pink);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--neon-pink), transparent);
+        }
+
+        .content-block {
+            margin-bottom: 80px;
+        }
+
+        .bio-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .bio-text strong {
+            color: var(--text-primary);
+        }
+
+        /* Operational History (Experience) - Data Cards */
+        .history-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .history-card {
+            background: var(--surface);
+            border: 1px solid var(--border-dim);
+            padding: 25px;
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(5px);
+            transition: all 0.3s;
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 20px;
+            align-items: start;
         }
 
-        .social-btn::before {
+        .history-card:hover {
+            border-color: var(--border-glow);
+            transform: translateX(10px);
+            background: var(--surface-hover);
+        }
+
+        .history-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: var(--neon-cyan);
+            transform: scaleY(0);
+            transition: transform 0.3s;
+            transform-origin: bottom;
+        }
+
+        .history-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .history-date {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--neon-cyan);
+            font-size: 0.9rem;
+        }
+
+        .history-details h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .history-details p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Visual Telemetry (Images/Projects) - Masonry/Grid */
+        .visual-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .visual-item {
+            position: relative;
+            aspect-ratio: 16/9;
+            background: var(--surface);
+            border: 1px solid var(--border-dim);
+            overflow: hidden;
+            group: hover;
+        }
+
+        .visual-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.5;
+            transition: all 0.5s;
+            filter: grayscale(80%);
+        }
+
+        .visual-item:hover img {
+            opacity: 1;
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        .visual-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .visual-item:hover .visual-overlay {
+            transform: translateY(0);
+        }
+
+        .visual-overlay h4 {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--neon-cyan);
+            margin-bottom: 5px;
+        }
+
+        /* Security Clearances (Certifications) - Badge Grid */
+        .clearance-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .clearance-badge {
+            padding: 12px 20px;
+            background: transparent;
+            border: 1px solid var(--neon-purple);
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            cursor: default;
+        }
+
+        .clearance-badge::after {
             content: '';
             position: absolute;
             top: 0; left: -100%;
             width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(88, 166, 255, 0.1), transparent);
-            transition: left 0.5s ease;
+            background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.2), transparent);
+            transition: left 0.4s;
         }
 
-        .social-btn:hover::before {
+        .clearance-badge:hover::after {
             left: 100%;
         }
 
-        .social-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            box-shadow: 0 0 15px var(--accent-glow);
-            transform: translateY(-2px);
+        .clearance-badge:hover {
+            background: rgba(138, 43, 226, 0.1);
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
         }
 
-        /* Secciones (Tarjetas Glassmorphism) */
-        .section {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 40px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            margin-bottom: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, border-color 0.3s ease;
-            animation: fadeInUp 1s ease-out backwards;
+        /* Tactical Arsenal (Tech Stack) - Monospace dense block */
+        .arsenal-container {
+            background: var(--surface);
+            padding: 30px;
+            border: 1px solid var(--border-dim);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 2;
         }
 
-        .section:nth-child(2) { animation-delay: 0.1s; }
-        .section:nth-child(3) { animation-delay: 0.2s; }
-        .section:nth-child(4) { animation-delay: 0.3s; }
-        .section:nth-child(5) { animation-delay: 0.4s; }
-        .section:nth-child(6) { animation-delay: 0.5s; }
-
-        .section:hover {
-            border-color: var(--border-hover);
-        }
-
-        .section h2 {
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 15px;
-            margin-top: 0;
-            font-size: 1.8em;
-        }
-
-        .section h2::before {
-            content: '>';
-            color: var(--accent-green);
-            margin-right: 10px;
-        }
-
-        /* Cuadrículas */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        /* Proyectos (Con imágenes) */
-        .project-card {
-            background: rgba(13, 17, 23, 0.8);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-            box-shadow: 0 5px 20px var(--accent-glow);
-        }
-
-        .project-img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-bottom: 1px solid var(--border-color);
-            background-color: #1c2128; /* Placeholder color */
-        }
-
-        .project-content {
-            padding: 20px;
-        }
-
-        .project-content h3 {
-            margin: 0 0 10px 0;
-            font-size: 1.2em;
-        }
-
-        .project-content p {
-            font-size: 0.9em;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-        }
-
-        /* Listas y Etiquetas */
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        ul.timeline {
-            position: relative;
-        }
-
-        ul.timeline::before {
-            content: '';
-            position: absolute;
-            left: 5px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--border-color);
-        }
-
-        ul.timeline li {
-            position: relative;
-            padding-left: 30px;
-            margin-bottom: 25px;
-        }
-
-        ul.timeline li::before {
-            content: '';
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: var(--bg-base);
-            border: 2px solid var(--accent);
-            border-radius: 50%;
-            left: -1px;
-            top: 5px;
-            transition: all 0.3s ease;
-        }
-
-        ul.timeline li:hover::before {
-            background: var(--accent);
-            box-shadow: 0 0 10px var(--accent);
-        }
-
-        ul.timeline li span.date {
-            display: block;
-            font-size: 0.85em;
-            color: var(--accent-green);
-            font-family: 'Fira Code', monospace;
-            margin-bottom: 5px;
-        }
-
-        ul.tech-list li, ul.cert-list li {
-            background: rgba(13, 17, 23, 0.6);
-            margin: 10px 0;
-            padding: 15px;
-            border-radius: 6px;
-            font-size: 0.95em;
-            border: 1px solid var(--border-color);
-            transition: transform 0.2s, background 0.2s;
-        }
-
-        ul.tech-list li:hover, ul.cert-list li:hover {
-            transform: translateX(5px);
-            background: rgba(88, 166, 255, 0.05);
-            border-color: var(--accent);
-        }
-
-        .tag {
+        .arsenal-category {
+            color: var(--neon-pink);
             display: inline-block;
-            background: rgba(88, 166, 255, 0.1);
-            color: var(--accent);
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.75em;
-            margin: 4px 4px 0 0;
-            font-family: 'Fira Code', monospace;
-            border: 1px solid rgba(88, 166, 255, 0.2);
-            transition: all 0.2s;
+            width: 140px;
         }
 
-        .tag:hover {
-            background: rgba(88, 166, 255, 0.2);
-            border-color: var(--accent);
+        .arsenal-items {
+            color: var(--text-secondary);
         }
 
-        .lang-table {
-            width: 100%;
-            text-align: left;
-            border-collapse: collapse;
+        .arsenal-items span {
+            transition: color 0.2s;
+            cursor: crosshair;
         }
 
-        .lang-table th, .lang-table td {
-            padding: 15px 10px;
-            border-bottom: 1px solid var(--border-color);
+        .arsenal-items span:hover {
+            color: var(--neon-cyan);
+            text-decoration: underline;
         }
 
-        .lang-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        /* Animaciones Clave */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .dashboard { flex-direction: column; }
+            .panel-left { width: 100%; height: auto; position: relative; padding: 40px; border-right: none; border-bottom: 1px solid var(--border-dim); }
+            .panel-right { width: 100%; padding: 40px; }
+            .history-card { grid-template-columns: 1fr; gap: 10px; }
+            .history-date { margin-bottom: 5px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div class="dashboard">
         
-        <!-- HEADER / PRESENTACIÓN -->
-        <header>
-            <div class="profile-pic-container">
-                <!-- Reemplaza el src con la URL de tu imagen real -->
-                <img src="https://via.placeholder.com/150/1c2128/c9d1d9?text=DC" alt="Daniel Cunjamá" class="profile-pic">
+        <!-- LEFT PANEL: Identity -->
+        <aside class="panel-left">
+            <div class="avatar-frame">
+                <!-- Imagen de Perfil -->
+                <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=200" alt="Daniel Cunjamá" class="avatar-img">
             </div>
-            <h1>Daniel Cunjamá<span class="cursor"></span></h1>
-            <div class="handle">drvnkhunter</div>
             
-            <div class="bio">
-                <span style="color: var(--accent-green); font-family: 'Fira Code', monospace; font-size: 0.9em;">> System initialized. Welcome.</span><br><br>
-                Cybersecurity and Infrastructure Professional with 3+ years of experience bridging DevOps, Application Security, and IT operations. Proven track record securing mission-critical financial and healthcare systems through threat modeling, SAST/DAST, and infrastructure hardening. Master's student in Cybersecurity and Active ASICI Member - Asociación Internacional de Ciberseguridad (Spain).
+            <div class="identity">
+                <h1>Daniel<br>Cunjamá</h1>
+                <div class="handle">drvnkhunter</div>
             </div>
 
-            <div class="socials">
-                <a href="https://linkedin.com/in/frandanielcunjama" target="_blank" class="social-btn">LinkedIn</a>
-                <a href="https://tryhackme.com/p/drvnkhunter" target="_blank" class="social-btn">TryHackMe</a>
-                <a href="https://youtube.com/@dr.hunter" target="_blank" class="social-btn">YouTube</a>
-            </div>
-        </header>
-
-        <!-- EXPERIENCIA -->
-        <section class="section">
-            <h2>Experience</h2>
-            <ul class="timeline">
-                <li>
-                    <span class="date">Present</span>
-                    <strong>HPE NonStop Tandem Consultant</strong> - OmniPayments
-                </li>
-                <li>
-                    <span class="date">Previous</span>
-                    <strong>Application Security Engineer</strong> - Financial Sector
-                </li>
-                <li>
-                    <span class="date">Previous</span>
-                    <strong>Secure Software Engineer</strong> - IMSS Bienestar
-                </li>
-                <li>
-                    <span class="date">Internship</span>
-                    <strong>Secure Systems Architect</strong> - Neodata SA de CV
-                </li>
-                <li>
-                    <span class="date">Previous</span>
-                    <strong>Web System Developer</strong> - Secretaría de Salud del Gobierno de México
-                </li>
-                <li>
-                    <span class="date">Previous</span>
-                    <strong>Biomedical Engineer</strong> - Secretaría de Salud del Gobierno de México
-                </li>
-            </ul>
-        </section>
-
-        <!-- PROYECTOS DESTACADOS (NUEVA SECCIÓN PARA IMÁGENES) -->
-        <section class="section">
-            <h2>Featured Projects</h2>
-            <p style="font-size: 0.9em; color: var(--text-muted); font-family: 'Fira Code'; margin-bottom: 20px;">/* Operations and infrastructure deployments. */</p>
-            <div class="grid-3">
-                <!-- Proyecto 1 -->
-                <div class="project-card">
-                    <!-- Placeholder de imagen -->
-                    <img src="https://via.placeholder.com/400x200/161b22/58a6ff?text=Project+Alpha" alt="Project 1" class="project-img">
-                    <div class="project-content">
-                        <h3>Secure Infrastructure</h3>
-                        <p>Hardening of internal servers and implementation of Zero Trust architecture.</p>
-                        <span class="tag">DevSecOps</span>
-                        <span class="tag">SIEM</span>
-                    </div>
+            <div class="status-box">
+                <div class="status-row">
+                    <span>SYS.ROLE:</span>
+                    <span class="status-highlight">HPE NonStop Consultant</span>
                 </div>
-                <!-- Proyecto 2 -->
-                <div class="project-card">
-                    <img src="https://via.placeholder.com/400x200/161b22/238636?text=Threat+Model" alt="Project 2" class="project-img">
-                    <div class="project-content">
-                        <h3>AppSec Analysis</h3>
-                        <p>Threat modeling and automated SAST/DAST pipelines for financial apps.</p>
-                        <span class="tag">SAST/DAST</span>
-                        <span class="tag">OWASP</span>
-                    </div>
+                <div class="status-row">
+                    <span>SEC.CLEARANCE:</span>
+                    <span class="status-val">Master's in progress</span>
                 </div>
-                <!-- Proyecto 3 -->
-                <div class="project-card">
-                    <img src="https://via.placeholder.com/400x200/161b22/8b949e?text=Custom+Tool" alt="Project 3" class="project-img">
-                    <div class="project-content">
-                        <h3>Otti Virtual Assistant</h3>
-                        <p>Standalone conversational chatbot assistant focused on cybersecurity queries.</p>
-                        <span class="tag">Python</span>
-                        <span class="tag">AI/ML</span>
-                    </div>
+                <div class="status-row">
+                    <span>LOCATION:</span>
+                    <span class="status-val">MX</span>
+                </div>
+                <div class="status-row">
+                    <span>OPERATIVE.TYPE:</span>
+                    <span class="status-val">INTP / Solo Architect</span>
                 </div>
             </div>
-        </section>
 
-        <!-- TECH STACK -->
-        <section class="section">
-            <h2>Tech Stack</h2>
-            <p style="font-size: 0.9em; color: var(--text-muted); font-family: 'Fira Code'; margin-bottom: 20px;">/* Stack automatically mapped from daily operations. */</p>
+            <nav class="nav-links">
+                <a href="https://linkedin.com/in/frandanielcunjama" target="_blank">Access: LinkedIn</a>
+                <a href="https://tryhackme.com/p/drvnkhunter" target="_blank">Access: TryHackMe</a>
+                <a href="https://youtube.com/@dr.hunter" target="_blank">Access: YouTube</a>
+                <a href="mailto:contact@example.com">Execute: Contact</a>
+            </nav>
+        </aside>
+
+        <!-- RIGHT PANEL: Data Content -->
+        <main class="panel-right">
             
-            <div class="grid-2">
-                <div>
-                    <h3>Languages & Tools</h3>
-                    <ul class="tech-list">
-                        <li>Python, Javascript, PHP, Java, Kotlin, Dart</li>
-                        <li>SQL, MySQL, phpMyAdmin</li>
-                        <li>HTML, CSS, Bash, Shell Scripting</li>
-                        <li>Spring Boot, Flutter</li>
-                        <li>YAML, JSON</li>
-                    </ul>
+            <!-- EXECUTIVE SUMMARY -->
+            <section class="content-block">
+                <h2 class="section-title">01. Executive Summary</h2>
+                <p class="bio-text">
+                    Cybersecurity and Infrastructure Professional bridging <strong>DevOps, Application Security, and IT operations</strong>. Proven track record in securing mission-critical financial and healthcare systems through threat modeling, SAST/DAST, and strict infrastructure hardening. Active ASICI Member building secure architectures and preparing to launch <strong>CunSecurity Academy</strong>.
+                </p>
+            </section>
+
+            <!-- OPERATIONAL HISTORY -->
+            <section class="content-block">
+                <h2 class="section-title">02. Operational History</h2>
+                <div class="history-grid">
+                    
+                    <div class="history-card">
+                        <div class="history-date">PRESENT</div>
+                        <div class="history-details">
+                            <h3>HPE NonStop Tandem Consultant</h3>
+                            <p>OmniPayments</p>
+                        </div>
+                    </div>
+
+                    <div class="history-card">
+                        <div class="history-date">PREVIOUS</div>
+                        <div class="history-details">
+                            <h3>Application Security Engineer (External)</h3>
+                            <p>Financial Sector - Credit Onboarding Platform</p>
+                        </div>
+                    </div>
+
+                    <div class="history-card">
+                        <div class="history-date">PREVIOUS</div>
+                        <div class="history-details">
+                            <h3>Secure Software Engineer</h3>
+                            <p>IMSS Bienestar</p>
+                        </div>
+                    </div>
+
+                    <div class="history-card">
+                        <div class="history-date">PREVIOUS</div>
+                        <div class="history-details">
+                            <h3>Secure Systems Architect</h3>
+                            <p>Neodata SA de CV</p>
+                        </div>
+                    </div>
+
                 </div>
-                <div>
-                    <h3>Cybersecurity Tools</h3>
-                    <ul class="tech-list">
-                        <li><strong>DevSecOps:</strong> Veracode, Snyk Code, GitHub Actions, OWASP Mobile</li>
-                        <li><strong>SIEM & Network:</strong> Splunk, Elastic, Wireshark, Tcpdump, Nmap</li>
-                        <li><strong>Pentesting:</strong> Kali Linux, Burp Suite, Metasploit, Nessus, SQLMap</li>
-                        <li><strong>Threat Intel & OSINT:</strong> VirusTotal, MITRE ATT&CK, Shodan, Epieos</li>
-                        <li><strong>Crypto / Forense:</strong> CyberChef, FTK Imager, Autopsy, EnCase</li>
-                    </ul>
+            </section>
+
+            <!-- VISUAL TELEMETRY (IMÁGENES Y PROYECTOS) -->
+            <section class="content-block">
+                <h2 class="section-title">03. Visual Telemetry</h2>
+                <div class="visual-grid">
+                    
+                    <div class="visual-item">
+                        <!-- Imagen Proyecto 1 -->
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=600" alt="Cybersecurity Architecture">
+                        <div class="visual-overlay">
+                            <h4>Zero Trust Architecture</h4>
+                            <p style="font-size: 0.85rem; color: #fff;">Financial sector deployment.</p>
+                        </div>
+                    </div>
+
+                    <div class="visual-item">
+                        <!-- Imagen Proyecto 2 -->
+                        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=600" alt="Code Matrix">
+                        <div class="visual-overlay">
+                            <h4>Otti Virtual Assistant</h4>
+                            <p style="font-size: 0.85rem; color: #fff;">Standalone AI chatbot.</p>
+                        </div>
+                    </div>
+
+                    <div class="visual-item">
+                        <!-- Imagen Proyecto 3 -->
+                        <img src="https://images.unsplash.com/photo-1614064641913-6b71a30a1334?auto=format&fit=crop&q=80&w=600" alt="Server Rack">
+                        <div class="visual-overlay">
+                            <h4>Infrastructure Hardening</h4>
+                            <p style="font-size: 0.85rem; color: #fff;">HPE NonStop Environment.</p>
+                        </div>
+                    </div>
+
+                    <div class="visual-item">
+                        <!-- Imagen Proyecto 4 -->
+                        <img src="https://images.unsplash.com/photo-1563206767-5b18f218e8de?auto=format&fit=crop&q=80&w=600" alt="Terminal">
+                        <div class="visual-overlay">
+                            <h4>AppSec / SAST</h4>
+                            <p style="font-size: 0.85rem; color: #fff;">Automated pipelines.</p>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- CERTIFICACIONES -->
-        <section class="section">
-            <h2>Certifications</h2>
-            <div class="grid-2">
-                <ul class="cert-list">
-                    <li>CompTIA Security+</li>
-                    <li>eJPT Certification Candidate</li>
-                    <li>Cisco Networking Academy Junior Cybersecurity Analyst</li>
-                    <li>Cisco Networking Academy Ethical Hacker</li>
-                    <li>TryHackMe Security Engineer Certificate</li>
-                    <li>TryHackMe SOC Level 1 Certificate</li>
-                </ul>
-                <ul class="cert-list">
-                    <li>Google Cybersecurity</li>
-                    <li>Google Python & Network Security</li>
-                    <li>Edutin Academy Cybersecurity and Information Security</li>
-                    <li>Santander Project Management and Agile Methodology</li>
-                    <li>Santander Introduction to Data Science</li>
-                </ul>
-            </div>
-        </section>
+            <!-- SECURITY CLEARANCES -->
+            <section class="content-block">
+                <h2 class="section-title">04. Security Clearances</h2>
+                <div class="clearance-grid">
+                    <div class="clearance-badge">CompTIA Security+</div>
+                    <div class="clearance-badge">eJPT Candidate</div>
+                    <div class="clearance-badge">Cisco Jr. Cyber Analyst</div>
+                    <div class="clearance-badge">Cisco Ethical Hacker</div>
+                    <div class="clearance-badge">TryHackMe Security Eng.</div>
+                    <div class="clearance-badge">Google Cybersecurity</div>
+                </div>
+            </section>
 
-        <!-- IDIOMAS -->
-        <section class="section">
-            <h2>Languages</h2>
-            <table class="lang-table">
-                <tr>
-                    <td><strong>Spanish</strong></td>
-                    <td>Native</td>
-                </tr>
-                <tr>
-                    <td><strong>English</strong></td>
-                    <td>Intermediate <span class="tag">Technical & Cybersecurity Focus</span></td>
-                </tr>
-                <tr>
-                    <td><strong>Portuguese</strong></td>
-                    <td>Basic <span class="tag">Just for fun</span></td>
-                </tr>
-            </table>
-        </section>
+            <!-- TACTICAL ARSENAL -->
+            <section class="content-block">
+                <h2 class="section-title">05. Tactical Arsenal</h2>
+                <div class="arsenal-container">
+                    <div>
+                        <span class="arsenal-category">DEV_LANGUAGES</span>
+                        <span class="arsenal-items">
+                            <span>Python</span> // <span>JavaScript</span> // <span>Java</span> // <span>Kotlin</span> // <span>Dart</span> // <span>Bash</span>
+                        </span>
+                    </div>
+                    <div>
+                        <span class="arsenal-category">DEV_SEC_OPS</span>
+                        <span class="arsenal-items">
+                            <span>Veracode</span> // <span>Snyk Code</span> // <span>GitHub Actions</span> // <span>OWASP</span>
+                        </span>
+                    </div>
+                    <div>
+                        <span class="arsenal-category">SIEM_NET</span>
+                        <span class="arsenal-items">
+                            <span>Splunk</span> // <span>Elastic</span> // <span>Wireshark</span> // <span>Nmap</span> // <span>Snort</span>
+                        </span>
+                    </div>
+                    <div>
+                        <span class="arsenal-category">OFFENSIVE</span>
+                        <span class="arsenal-items">
+                            <span>Kali Linux</span> // <span>Burp Suite</span> // <span>Metasploit</span> // <span>Nessus</span> // <span>SQLMap</span>
+                        </span>
+                    </div>
+                    <div>
+                        <span class="arsenal-category">FORENSICS</span>
+                        <span class="arsenal-items">
+                            <span>CyberChef</span> // <span>FTK Imager</span> // <span>Autopsy</span> // <span>EnCase</span>
+                        </span>
+                    </div>
+                </div>
+            </section>
 
-        <footer style="text-align: center; margin-top: 50px; font-family: 'Fira Code', monospace; font-size: 0.9em; color: var(--border-hover);">
-            <p>echo "Designed for drvnkhunter. $(date +%Y)"</p>
-            <p style="font-size: 0.8em; color: var(--border-color);">Connection terminated.</p>
-        </footer>
+            <footer style="margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--border-dim); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text-secondary); text-align: right;">
+                SYSTEM HALTED. // drvnkhunter (c) 2026.
+            </footer>
 
+        </main>
     </div>
 
-    <script>
-        // Efecto de tipeo en el título principal
-        const title = document.querySelector('header h1');
-        const text = "Daniel Cunjamá";
-        const cursor = document.querySelector('.cursor');
-        title.innerHTML = '';
-        
-        let i = 0;
-        function typeWriter() {
-            if (i < text.length) {
-                title.innerHTML += text.charAt(i);
-                i++;
-                setTimeout(typeWriter, 100);
-            } else {
-                title.appendChild(cursor);
-            }
-        }
-        
-        setTimeout(typeWriter, 500);
-    </script>
 </body>
-</html>"""
-
-with open('/mnt/data/portfolio.html', 'w') as f:
-    f.write(html_content)
-
-print("HTML file generated successfully.")
+</html>
