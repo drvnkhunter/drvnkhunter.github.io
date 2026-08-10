@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fran Daniel Cunjama | Cybersecurity Professional</title>
+    <!-- Google Fonts para un diseño moderno y tipo terminal -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Variables de colores (Estilo Dark / Cyber) */
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-main: #c9d1d9;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --accent-green: #238636;
+            --border-color: #30363d;
+        }
+
+        /* Estilos Globales */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Fira Code', monospace;
+            color: var(--accent);
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: var(--accent-green);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Cabecera (Header) */
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        header span {
+            color: var(--accent);
+        }
+
+        .bio {
+            font-size: 1.1em;
+            color: var(--text-muted);
+            max-width: 750px;
+            margin: 20px auto;
+        }
+
+        /* Botones de Contacto */
+        .socials {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            border-radius: 5px;
+            background: var(--card-bg);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9em;
+        }
+
+        .social-btn:hover {
+            border-color: var(--accent);
+        }
+
+        /* Secciones (Tarjetas) */
+        .section {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        /* Cuadrículas para listas (Grid) */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        /* Listas y Etiquetas */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul.timeline li {
+            border-left: 2px solid var(--accent);
+            padding-left: 15px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        ul.timeline li::before {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--bg-color);
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            left: -7px;
+            top: 5px;
+        }
+
+        ul.tech-list li, ul.cert-list li {
+            background: var(--bg-color);
+            margin: 8px 0;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            border: 1px solid var(--border-color);
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--accent);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin: 3px;
+            font-family: 'Fira Code', monospace;
+            border: 1px solid rgba(88, 166, 255, 0.2);
+        }
+
+        .lang-table {
+            width: 100%;
+            text-align: left;
+            border-collapse: collapse;
+        }
+
+        .lang-table th, .lang-table td {
+            padding: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- HEADER / PRESENTACIÓN -->
+        <header>
+            <h1>Fran Daniel Cunjama <span>_</span></h1>
+            <div style="font-family: 'Fira Code', monospace; color: var(--accent-green);">drvnkhunter</div>
+            
+            <p class="bio">
+                Hello, everyone. 👽🖖<br><br>
+                Cybersecurity and Infrastructure Professional with 3+ years of experience bridging DevOps, Application Security, and IT operations. Proven track record securing mission-critical financial and healthcare systems through threat modeling, SAST/DAST, and infrastructure hardening. Master's student in Cybersecurity and Active ASICI Member - Asociación Internacional de Ciberseguridad (Spain).
+            </p>
+
+            <div class="socials">
+                <a href="https://linkedin.com/in/frandanielcunjama" target="_blank" class="social-btn">💼 LinkedIn</a>
+                <a href="https://tryhackme.com/p/drvnkhunter" target="_blank" class="social-btn">👽 TryHackMe</a>
+                <a href="https://youtube.com/@dr.hunter" target="_blank" class="social-btn">💻 YouTube</a>
+            </div>
+        </header>
+
+        <!-- EXPERIENCIA -->
+        <section class="section">
+            <h2>🚀 Experience</h2>
+            <ul class="timeline">
+                <li><strong>HPE NonStop Tandem Consultant</strong> - OmniPayments</li>
+                <li><strong>Application Security Engineer</strong> - Financial Sector</li>
+                <li><strong>Secure Software Engineer</strong> - IMSS Bienestar</li>
+                <li><strong>Secure Systems Architect (Internship)</strong> - Neodata SA de CV</li>
+                <li><strong>Web System Developer</strong> - Secretaría de Salud del Gobierno de México</li>
+                <li><strong>Biomedical Engineer</strong> - Secretaría de Salud del Gobierno de México</li>
+            </ul>
+        </section>
+
+        <!-- TECH STACK -->
+        <section class="section">
+            <h2>🔧 Tech Stack</h2>
+            <p style="font-size: 0.9em; color: var(--text-muted); font-family: 'Fira Code';">/* This section is constantly updated. 😄 */</p>
+            
+            <div class="grid-2">
+                <div>
+                    <h3>Languages & Tools</h3>
+                    <ul class="tech-list">
+                        <li>Python, Javascript, PHP, Java, Kotlin, Dart</li>
+                        <li>SQL, MySQL, phpMyAdmin</li>
+                        <li>HTML, CSS, Bash, Shell Scripting</li>
+                        <li>Spring Boot, Flutter</li>
+                        <li>YAML, JSON</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Cybersecurity Tools</h3>
+                    <ul class="tech-list">
+                        <li><strong>DevSecOps:</strong> Veracode, Snyk Code, GitHub Actions, OWASP Top 10 Mobile</li>
+                        <li><strong>SIEM & Network:</strong> Splunk, Elastic SIEM, Wireshark, Tcpdump, Nmap, Snort</li>
+                        <li><strong>Pentesting:</strong> Kali Linux, Burp Suite, Metasploit, Nessus, SQLMap, Nikto</li>
+                        <li><strong>Threat Intel & OSINT:</strong> VirusTotal, AnyRun, MITRE ATT&CK, Shodan, Whois, Epieos</li>
+                        <li><strong>Crypto / Forense:</strong> CyberChef, FTK Imager, Autopsy, EnCase Imager</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- CERTIFICACIONES -->
+        <section class="section">
+            <h2>🧩 Certifications</h2>
+            <div class="grid-2">
+                <ul class="cert-list">
+                    <li>CompTIA Security+</li>
+                    <li>eJPT Certification Candidate</li>
+                    <li>Cisco Networking Academy Junior Cybersecurity Analyst</li>
+                    <li>Cisco Networking Academy Ethical Hacker</li>
+                    <li>TryHackMe Security Engineer Certificate</li>
+                    <li>TryHackMe SOC Level 1 Certificate</li>
+                </ul>
+                <ul class="cert-list">
+                    <li>Google Cybersecurity</li>
+                    <li>Google Python & Network Security</li>
+                    <li>Edutin Academy Cybersecurity and Information Security</li>
+                    <li>Santander Project Management and Agile Methodology Fundamentals</li>
+                    <li>Santander Introduction to Data Science</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- IDIOMAS -->
+        <section class="section">
+            <h2>🌍 Languages</h2>
+            <table class="lang-table">
+                <tr>
+                    <td><strong>Spanish</strong></td>
+                    <td>Native</td>
+                </tr>
+                <tr>
+                    <td><strong>English</strong></td>
+                    <td>Intermediate <span class="tag">Technical & Cybersecurity Focus</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Portuguese</strong></td>
+                    <td>Basic <span class="tag">Just for fun</span></td>
+                </tr>
+            </table>
+        </section>
+
+        <footer style="text-align: center; margin-top: 50px; font-size: 0.9em; color: var(--text-muted);">
+            <p>echo "Designed for drvnkhunter. $(date +%Y)"</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
